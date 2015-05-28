@@ -58,7 +58,8 @@ fprintf(fid,'Point(%i) = {%.10g,%.10g,%.10g,%.10g};\n',i,percor(i,1),percor(i,2)
 end
 
 %writing the points which define the enclosing semiellipse
-fprintf (fid, 'Point(%i) = {%.10g,%.10g,%.10g,%.10g};\n', m+1,minx-cuerda/20,0,z0,cuerda/25);
+ellipse_pos_fac = 0.1
+fprintf (fid, 'Point(%i) = {%.10g,%.10g,%.10g,%.10g};\n', m+1,minx-cuerda*ellipse_pos_fac,0,z0,cuerda/25);
 fprintf (fid, 'Point(%i) = {%.10g,%.10g,%.10g,%.10g};\n', m+2,maxx,maxy+cuerda/4,z0,cuerda/25);
 fprintf (fid, 'Point(%i) = {%.10g,%.10g,%.10g,%.10g};\n', m+3,maxx,miny-cuerda/4,z0,cuerda/25);
 
@@ -103,12 +104,14 @@ upstream_factor = 10
 downstream_factor = 20
 % originally set to 4
 vertical_factor = 10
+% originally set to 2
+angle_factor = 8 
 fprintf (fid, 'Point(%i) = {%.10g,%.10g,%.10g,%.10g};\n', m+4,maxx-(1-cos(alfa))*cuerda/2-sin(alfa)*(cuerda/4+maxy),vertical_factor*cuerda,z0,cuerda);
-fprintf (fid, 'Point(%i) = {%.10g,%.10g,%.10g,%.10g};\n', m+5,minx-2*cuerda,vertical_factor*cuerda,z0,cuerda);
+fprintf (fid, 'Point(%i) = {%.10g,%.10g,%.10g,%.10g};\n', m+5,minx-angle_factor*cuerda,vertical_factor*cuerda,z0,cuerda);
 fprintf (fid, 'Point(%i) = {%.10g,%.10g,%.10g,%.10g};\n', m+6,minx-upstream_factor*cuerda,vertical_factor*cuerda,z0,cuerda);
 fprintf (fid, 'Point(%i) = {%.10g,%.10g,%.10g,%.10g};\n', m+7,minx-upstream_factor*cuerda,0-0.55*cuerda*sin(alfa),z0,cuerda);
 fprintf (fid, 'Point(%i) = {%.10g,%.10g,%.10g,%.10g};\n', m+8,minx-upstream_factor*cuerda,-vertical_factor*cuerda,z0,cuerda);
-fprintf (fid, 'Point(%i) = {%.10g,%.10g,%.10g,%.10g};\n', m+9,minx-2*cuerda,-vertical_factor*cuerda,z0,cuerda);
+fprintf (fid, 'Point(%i) = {%.10g,%.10g,%.10g,%.10g};\n', m+9,minx-angle_factor*cuerda,-vertical_factor*cuerda,z0,cuerda);
 fprintf (fid, 'Point(%i) = {%.10g,%.10g,%.10g,%.10g};\n', m+10,maxx-(1-cos(alfa))*cuerda/2-sin(alfa)*(-cuerda/4+miny),-vertical_factor*cuerda,z0,cuerda);
 fprintf (fid, 'Point(%i) = {%.10g,%.10g,%.10g,%.10g};\n', m+11,maxx+downstream_factor*cuerda,-vertical_factor*cuerda,z0,cuerda);
 fprintf (fid, 'Point(%i) = {%.10g,%.10g,%.10g,%.10g};\n', m+12,maxx+downstream_factor*cuerda,percor(posmaxx,2)+cos(alfa)*(miny-cuerda/4)+cuerda/2*sin(alfa),z0,cuerda);
