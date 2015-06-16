@@ -15,7 +15,7 @@ cl3 = 10;
 
 radius = 1;
 outer = 10;
-numinner = 30; 
+numinner = 20; 
 extr = -1;
 
 // Exterior (bounding box) of mesh
@@ -56,9 +56,9 @@ Circle(16) = {12, 5, 8};
 
 
 Transfinite Line {5,6,7,8,13,14,15,16} = 20; // We want 40 points along each of these lines
-Transfinite Line {9,10,11,12} = numinner Using Progression 1.1;    // And 10 points along each of these lines
+Transfinite Line {9,10,11,12} = numinner;    // And 10 points along each of these lines
 
-//Using Progression 1.1
+
 
 // Each region which to be independently meshed must have a line loop
 // Regions which will be meshed with Transfinite Surface must have 4 lines
@@ -69,22 +69,22 @@ Line Loop(3) = {7, -12, -6, 9}; // LH side of quad region - note ordering
 Line Loop(4) = {-10, -14, 12, 15}; // RH side of quad region - note ordering
 Line Loop(5) = {16, -9, -13, 11}; // LH side of quad region - note ordering
 
-Plane Surface(1) = {1}; // Outer unstructured region
-Plane Surface(2) = {2}; // RH inner structured region
-Plane Surface(3) = {3}; // LH inner structured region
-Plane Surface(4) = {4}; // RH inner structured region
-Plane Surface(5) = {5}; // LH inner structured region
+//Plane Surface(1) = {1}; // Outer unstructured region
+Plane Surface(1) = {2}; // RH inner structured region
+Plane Surface(2) = {3}; // LH inner structured region
+Plane Surface(3) = {4}; // RH inner structured region
+Plane Surface(4) = {5}; // LH inner structured region
 
 // Mesh these surfaces in a structured manner
-Transfinite Surface{2,3,4,5};
+Transfinite Surface{1,2,3,4};
 
 // Turn into quads (optional, but Transfinite Surface looks best with quads)
-Recombine Surface {2,3,4,5};
+Recombine Surface {1,2,3,4};
 // Turn outer region into unstructured quads (optional)
-Recombine Surface {1};
+//Recombine Surface {1};
 
 // Change layer to increase z subdivision
-Extrude {0, 0, extr} { Surface{1,2,3,4,5}; Layers{1}; Recombine;}
+Extrude {0, 0, extr} { Surface{1,2,3,4}; Layers{1}; Recombine;}
 
 
 // Apply boundary conditions
@@ -102,9 +102,9 @@ Extrude {0, 0, extr} { Surface{1,2,3,4,5}; Layers{1}; Recombine;}
 // IMPORTANT: "FLUID" MUST contain all fluid surfaces(2D)/volumes(3D)
 //Physical Surface("FLUID") = {1,2,3};
 
-Physical Surface("wall") = {115, 79, 97,141};
-Physical Surface("inflow") = {41, 37, 29};
-Physical Surface("outflow") = {33};
-Physical Surface("periodic_0_r") = {1,2,3,4,5};
-Physical Surface("periodic_0_l") = {58,124,80,102,146};
-Physical Volume("fluid") = {1, 2, 4, 3, 5};
+Physical Surface("wall") = {55,72,99,37};
+Physical Surface("inflow") = {47, 81};
+Physical Surface("outflow") = {29,91};
+Physical Surface("periodic_0_r") = {1,2,3,4};
+Physical Surface("periodic_0_l") = {82,38,60,104};
+Physical Volume("fluid") = {1, 2, 4, 3};
